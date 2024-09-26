@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 def register(request):
     if request.method == 'POST':
@@ -29,9 +29,6 @@ def user_logout(request):
     logout(request)
     return redirect('login')
 
-from django.contrib.auth.decorators import user_passes_test
-from django.shortcuts import render, HttpResponse
-
 def check_role(role):
     def decorator(user):
         return user.is_authenticated and user.userprofile.role == role
@@ -48,5 +45,19 @@ def librarian_view(request):
 @user_passes_test(check_role('Member'))
 def member_view(request):
     return HttpResponse("This is the Member view.")
-"relationship_app/register.html"
-"from django.contrib.auth.decorators import permission_required", "relationship_app.can_add_book", "relationship_app.can_change_book", "relationship_app.can_delete_book"
+
+# Define the functions for adding, editing, and deleting books
+@login_required
+def add_book(request):
+    # Logic to add a book goes here
+    return render(request, 'add_book.html')  # Ensure this template exists
+
+@login_required
+def edit_book(request, book_id):
+    # Logic to edit a book goes here
+    return render(request, 'edit_book.html')  # Ensure this template exists
+
+@login_required
+def delete_book(request, book_id):
+    # Logic to delete a book goes here
+    return render(request, 'delete_book.html')  # Ensure this template exists
