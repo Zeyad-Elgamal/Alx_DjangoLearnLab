@@ -1,3 +1,6 @@
+# relationship_app/views.py
+
 from django.shortcuts import render
 
-# Create your views here.
+def index(request):
+    return render(request, 'template_name.html')  # Change 'template_name.html' to your actual template
