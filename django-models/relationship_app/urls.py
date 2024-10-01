@@ -1,16 +1,8 @@
+# relationship_app/urls.py
+
 from django.urls import path
-from django.contrib.auth.views import LoginView, LogoutView
-from . import views
+from . import views  # Ensure this import is correct
 
 urlpatterns = [
-    path('register/', views.register, name='register'),
-    path('login/', LoginView.as_view(template_name='login.html'), name='login'),
-    path('logout/', LogoutView.as_view(template_name='logout.html'), name='logout'),
-    path('admin-view/', views.admin_view, name='admin_view'),
-    path('librarian-view/', views.librarian_view, name='librarian_view'),
-    path('member-view/', views.member_view, name='member_view'),
-    "add_book/", "edit_book/", "delete_book"
+    path('', views.index, name='index'),  # Ensure this points to an existing view
 ]
-
- 
-
