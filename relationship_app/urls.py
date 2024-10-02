@@ -1,8 +1,7 @@
-# relationship_app/urls.py
-
 from django.urls import path
-from . import views  # Ensure this import is correct
+from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),  # Ensure this points to an existing view
+    path('books/', views.list_books, name='book-list'),
+    path('libraries/<int:pk>/', views.LibraryDetailView.as_view(), name='library-detail'),
 ]
