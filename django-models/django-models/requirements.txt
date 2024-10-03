@@ -1,2 +1,0 @@
-Django==5.1.1
-mysqlclient  # If you're using MySQL for your database
