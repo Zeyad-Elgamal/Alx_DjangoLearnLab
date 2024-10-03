@@ -20,6 +20,15 @@ urlpatterns = [
     path('edit_book/', edit_book, name='edit-book'),
     path('delete_book/', delete_book, name='delete-book'),
 ]
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('register/', views.register, name='register'),
+    path('login/', views.user_login, name='login'),
+    path('logout/', views.user_logout, name='logout'),
+]
+
 
 '''from django.urls import path
 from .views import list_books, LibraryDetailView
