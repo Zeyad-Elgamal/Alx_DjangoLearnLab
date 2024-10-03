@@ -1,20 +1,18 @@
+from django.views import View
 from django.shortcuts import render
-from .models import Book, Library  # Import the Book and Library models
-from django.views.generic import ListView, DetailView  # Import ListView and DetailView
+from .models import Library  # Importing the Library model
+class LibraryDetailView(View):
+    def get(self, request, library_id):
+        # Get the library object based on the provided ID
+        library = Library.objects.get(id=library_id)
+        
+        # Assuming you have a related name for the books, e.g., 'books'
+        books = library.books.all()  # Adjust according to your relationship
+        
+        context = {
+            'library': library,
+            'books': books,
+        }
+        
+        return render(request, 'relationship_app/library_detail.html', context)
 
-def index(request):
-    return render(request, 'index.html')  # Ensure you have an index.html template
-
-def list_books(request):
-    books = Book.objects.all()  # Retrieve all books from the database
-    return render(request, 'relationship_app/list_books.html', {'books': books})  # Ensure the correct template path
-
-class BookListView(ListView):  # Add this class
-    model = Book  # Specify the model to be used
-    template_name = 'relationship_app/list_books.html'  # Ensure this path is correct
-    context_object_name = 'books'  # Name for the object in the template context
-
-class LibraryDetailView(DetailView):
-    model = Library  # Specify the model to be used
-    template_name = 'relationship_app/library_detail.html'  # Ensure this path is correct
-    context_object_name = 'library'  # Name for the object in the template context
