@@ -28,6 +28,15 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('logout/', views.user_logout, name='logout'),
 ]
+from django.urls import path
+from .views import admin_view, librarian_view, member_view # type: ignore
+
+urlpatterns = [
+    path('admin/', admin_view, name='admin_view'),
+    path('librarian/', librarian_view, name='librarian_view'),
+    path('member/', member_view, name='member_view'),
+]
+
 
 
 '''from django.urls import path
