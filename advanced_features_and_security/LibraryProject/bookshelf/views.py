@@ -29,3 +29,13 @@ def delete_book(request, book_id):
 def book_list(request):
     books = Book.objects.all()  # Get all books from the database
     return render(request, 'bookshelf/book_list.html', {'books': books})
+def search_books(request):
+    query = request.GET.get('q')
+    results = Book.objects.raw(f'SELECT * FROM bookshelf_book WHERE title LIKE "%{query}%"')
+    return render(request, 'bookshelf/book_list.html', {'results': results})
+from django.db.models import Q
+
+def search_books(request):
+    query = request.GET.get('q')
+    results = Book.objects.filter(Q(title__icontains=query) | Q(author__name__icontains=query))
+    return render(request, 'bookshelf/book_list.html', {'results': results})
