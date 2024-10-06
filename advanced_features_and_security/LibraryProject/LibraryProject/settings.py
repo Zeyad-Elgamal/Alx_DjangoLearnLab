@@ -41,6 +41,9 @@ SECURE_SSL_REDIRECT = True  # Redirect all non-HTTPS requests to HTTPS
 SECURE_HSTS_SECONDS = 31536000  # Enforce HSTS for 1 year
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Include all subdomains in the HSTS policy
 SECURE_HSTS_PRELOAD = True  # Allow preloading of HSTS
+# Secure proxy SSL header configuration
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # This tells Django to trust the 'X-Forwarded-Proto' header
+
 
 # Secure cookies
 SESSION_COOKIE_SECURE = True  # Ensure session cookies are only transmitted over HTTPS
