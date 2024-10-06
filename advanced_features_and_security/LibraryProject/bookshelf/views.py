@@ -39,3 +39,7 @@ def search_books(request):
     query = request.GET.get('q')
     results = Book.objects.filter(Q(title__icontains=query) | Q(author__name__icontains=query))
     return render(request, 'bookshelf/book_list.html', {'results': results})
+from django.shortcuts import render
+from .forms import ExampleForm # type: ignore
+
+# Define your views here
