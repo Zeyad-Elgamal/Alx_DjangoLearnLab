@@ -1,15 +1,21 @@
+import os
 from pathlib import Path
 
-# Define the base directory
+# Base directory path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Secret Key and Debug Mode
-SECRET_KEY = 'your-secret-key-here'
-DEBUG = True
+# Security settings
+DEBUG = False  # Set to False in production
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
-ALLOWED_HOSTS = []
+# Authentication
+AUTH_USER_MODEL = 'bookshelf.CustomUser'  # Adjust according to your app name
 
-# Installed Applications
+# Installed apps
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -17,69 +23,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bookshelf',  # Your custom app
+    'bookshelf', 
+    'csp',
 ]
 
-# Middleware
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
-# Root URL Configuration
-ROOT_URLCONF = 'LibraryProject.urls'
-
-# Templates Configuration
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
-
-# WSGI Application
-WSGI_APPLICATION = 'LibraryProject.wsgi.application'
-
-# Database Configuration (using SQLite)
+# Database settings
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',  # type: ignore
     }
 }
-
-# Authentication
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
-
-# Custom User Model
-AUTH_USER_MODEL = 'bookshelf.CustomUser'
-
-# Static Files
-STATIC_URL = '/static/'
